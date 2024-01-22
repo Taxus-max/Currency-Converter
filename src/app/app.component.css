@@ -1,0 +1,22 @@
+.logo{
+  transform: scale(0.75);
+  position: absolute;
+  margin-left: 5rem;
+}
+
+.title{
+  color: white;
+  font-size: xxx-large;
+}
+
+.title-box{
+  height: 15rem;
+  text-align: center;
+  align-content: center;
+  vertical-align: middle;
+  line-height: 15rem;
+}
+
+.top-box{
+  height: 15rem;
+}
