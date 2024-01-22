@@ -12,9 +12,15 @@
   vertical-align: middle;
 
 }
+
 button{
   transform: scale(1.5);
 }
+
 .country-flag{
   width: 20%
+}
+
+.currency-icon{
+  color: white;
 }

@@ -4,6 +4,7 @@
       <mat-form-field>
         <mat-label>Amount</mat-label>
         <input matInput type="number" #moneyStartingAmount>
+        <span class="currency-icon" matTextSuffix>{{getCurrencySymbol(currencyFrom)}}&nbsp;</span>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>

@@ -36,17 +36,22 @@ export class ExchangeComponent {
 
   convertButtonClick(moneyStartingAmount: string){
     if (this.currencyFrom === this.currencyTo) {
-      alert("Please select two different currencies!")
+      alert("Please select two different currencies!");
       return;
     }
     if (Number(moneyStartingAmount) === 0){
-      alert("Please define amount to exchange!")
+      alert("Please define amount to exchange!");
       return;
     }
     if (this.currencyTo === ""){
-      alert("Please select the the currency to convert!")
+      alert("Please select the the currency to convert!");
       return;
     }
+  };
 
+  getCurrencySymbol(currencyCode: string){
+      return this.currencies.find(currency => {
+        return currency.Code === currencyCode
+      })!.Symbol
   };
 }
