@@ -3,14 +3,19 @@
     <mat-grid-tile >
       <mat-form-field>
         <mat-label>Amount</mat-label>
-        <input matInput type="number">
+        <input matInput type="number" #moneyStartingAmount>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>From</mat-label>
-        <mat-select>
-          <mat-option>EUR</mat-option>
+        <mat-select [(value)]="currencyFrom">
+          @for (currency of currencies; track currency) {
+          <mat-option [value]="currency.Code">
+            <img class="country-flag" src="{{currency.Flag}}">
+          {{currency.Code}} - {{currency.CountryName}} {{currency.Currency}}
+          </mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -20,13 +25,18 @@
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>To</mat-label>
-        <mat-select>
-          <mat-option>USD</mat-option>
+        <mat-select [(value)]="currencyTo">
+          @for (currency of currencies; track currency) {
+          <mat-option [value]="currency.Code">
+            <img class="country-flag" src="{{currency.Flag}}">
+          {{currency.Code}} - {{currency.CountryName}} {{currency.Currency}}
+          </mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile rowspan="2">
-      <button mat-raised-button color="primary">Convert</button>
+      <button mat-raised-button color="primary" (click)="convertButtonClick(moneyStartingAmount.value)" >Convert</button>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
