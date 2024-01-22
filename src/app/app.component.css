@@ -20,3 +20,20 @@
 .top-box{
   height: 15rem;
 }
+
+.middle-box{
+  background-color: rgba(102, 112, 126, 0.7);
+  height: calc(100% - 3rem);
+  width: 100%;
+  margin: 4rem;
+  padding: 1rem;
+  border-radius: 20px;
+}
+.side-box{
+  background-color: rgba(102, 112, 126, 0.7);
+  height: calc(100% - 3rem);
+  width: 100%;
+  padding: 1rem;
+  margin: 4rem;
+  border-radius: 20px;
+}
