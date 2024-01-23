@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {ExchangeComponent} from "./exchange/exchange.component";
+import {ExchangeDetailsComponent} from "./exchange-details/exchange-details.component";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import {ExchangeComponent} from "./exchange/exchange.component";
     RouterOutlet,
     MatGridList,
     MatGridTile,
-    ExchangeComponent
+    ExchangeComponent,
+    ExchangeDetailsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

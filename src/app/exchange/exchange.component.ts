@@ -5,6 +5,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import worldCurrencies from "../../assets/currency_symbol.json"
+import {CurrencyDataService} from "../currency-data.service";
 
 interface currency {
   Flag: string,
@@ -30,6 +31,7 @@ interface currency {
 })
 
 export class ExchangeComponent {
+  constructor(private currencyDataService: CurrencyDataService) { }
   currencies: currency[]= worldCurrencies;
   currencyFrom: string = "HUF";
   currencyTo: string = "";
@@ -47,6 +49,8 @@ export class ExchangeComponent {
       alert("Please select the the currency to convert!");
       return;
     }
+
+    this.currencyDataService.convertCurrency(Number(moneyStartingAmount), this.currencyFrom, this.currencyTo)
   };
 
   getCurrencySymbol(currencyCode: string){
