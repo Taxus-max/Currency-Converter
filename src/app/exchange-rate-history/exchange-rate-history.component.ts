@@ -1,5 +1,6 @@
-import {Component, numberAttribute} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {CurrencyDataService} from "../currency-data.service";
 
 interface rateCurrencies{
   USD: number,
@@ -12,7 +13,6 @@ interface rateCurrencies{
   HKD: number,
   NZD: number,
   CNH: number
-
 }
 
 @Component({
@@ -25,8 +25,18 @@ interface rateCurrencies{
   templateUrl: './exchange-rate-history.component.html',
   styleUrl: './exchange-rate-history.component.css'
 })
+
 export class ExchangeRateHistoryComponent {
-  selectedCurrency: string = "";
+  constructor(private currencyDataService: CurrencyDataService) {
+    this.currencyDataService.latestExchangeDetailsChange.subscribe(value => {
+      this.selectedCurrency = value.to;
+    });
+    this.currencyDataService.latestCurrencyRatesChange.subscribe(value => {
+      this.exchangeRates = value;
+    });
+  }
+
+  selectedCurrency: string = "{No currency selected}";
   exchangeRates: rateCurrencies = {
     USD: 0,
     EUR: 0,
@@ -38,5 +48,5 @@ export class ExchangeRateHistoryComponent {
     HKD: 0,
     NZD: 0,
     CNH: 0
-  }
+  };
 }
