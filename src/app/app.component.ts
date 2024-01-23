@@ -3,6 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {ExchangeComponent} from "./exchange/exchange.component";
 import {ExchangeDetailsComponent} from "./exchange-details/exchange-details.component";
+import {ExchangeRateHistoryComponent} from "./exchange-rate-history/exchange-rate-history.component";
+import {ExchangeRateCurrentComponent} from "./exchange-rate-current/exchange-rate-current.component";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,9 @@ import {ExchangeDetailsComponent} from "./exchange-details/exchange-details.comp
     MatGridList,
     MatGridTile,
     ExchangeComponent,
-    ExchangeDetailsComponent
+    ExchangeDetailsComponent,
+    ExchangeRateHistoryComponent,
+    ExchangeRateCurrentComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
