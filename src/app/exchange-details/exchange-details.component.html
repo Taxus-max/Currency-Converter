@@ -1,1 +1,15 @@
-{{testDetails.from}}
+<div>
+  <div class="base-text" *ngIf="exchangeDetails.amount !== 0">
+    <p>{{exchangeDetails.amount}} {{exchangeDetails.from}} = <a class="result-text"> {{exchangeDetails.finalAmount}} </a> {{exchangeDetails.to}}</p>
+    <div *ngIf="exchangeDetails.to !== 'EUR' && exchangeDetails.to !== ''">
+      <p class="info-text">You converted to non EUR currency! See details below!</p>
+      <p><a class="bod-text">{{exchangeDetails.amount}}</a> {{exchangeDetails.from}} =
+        <a class="bod-text">{{exchangeDetails.amountMiddle}}</a> EUR =
+        <a class="bod-text">{{exchangeDetails.finalAmount}}</a> {{exchangeDetails.to}}</p>
+      <p>The final amount using only middle market rates would be: <a class="bod-text">{{exchangeDetails.finalMiddleAmount}}</a></p>
+    </div>
+  </div>
+  <div class="welcome-text" *ngIf="exchangeDetails.amount === 0" >
+    Make a conversion to view its details!
+  </div>
+</div>

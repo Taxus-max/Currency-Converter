@@ -1,0 +1,30 @@
+.base-text{
+  color: white;
+  font-size: x-large;
+}
+
+.result-text{
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.note-text{
+  font-size: large;
+}
+
+.info-text{
+  color: dodgerblue;
+}
+
+.welcome-text{
+  color: white;
+  font-size: xx-large;
+  text-align: center;
+  vertical-align: middle;
+  align-content: center;
+}
+
+.bod-text{
+  font-weight: bold;
+}

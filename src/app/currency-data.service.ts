@@ -6,6 +6,7 @@ interface exchangeDetails{
   to: string,
   amount: number,
   amountMiddle?: number,
+  finalMiddleAmount?: number,
   finalAmount: number
 }
 
@@ -38,9 +39,9 @@ export class CurrencyDataService {
     }
 
     this.latestExchangeDetailsChange.next(this.latestExchangeDetails = {
-      from: "HUF",
-      to: "EUR",
-      amount: 1000,
+      from: from,
+      to: to,
+      amount: amount,
       finalAmount: 10400
     });
   }
