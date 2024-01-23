@@ -1,1 +1,40 @@
-<p>exchange-rate-history works!</p>
+<div>
+  <div class="title-box">
+    <h2 class="title">Yesterday exchange rates for {{selectedCurrency}}:</h2>
+  </div>
+  <div class="data-box">
+    <mat-grid-list cols="2" rowHeight="15:1">
+      <mat-grid-tile>
+        USD: {{exchangeRates.USD}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        EUR: {{exchangeRates.EUR}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        YEN: {{exchangeRates.YEN}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        AUD: {{exchangeRates.AUD}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        GBP: {{exchangeRates.GBP}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        CHF: {{exchangeRates.CHF}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        CAD: {{exchangeRates.CAD}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        HKD: {{exchangeRates.HKD}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        NZD: {{exchangeRates.NZD}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        CNH: {{exchangeRates.CNH}}
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
+
