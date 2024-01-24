@@ -133,14 +133,7 @@ export class CurrencyDataService {
   }
 
   setResults(exchange: exchangeDetails) {
-    this.latestExchangeDetailsChange.next(this.latestExchangeDetails = {
-      from: exchange.from,
-      to: exchange.to,
-      amount: exchange.amount,
-      amountMiddle: exchange.amountMiddle,
-      finalMiddleAmount: exchange.finalMiddleAmount,
-      finalAmount: exchange.finalAmount
-    });
+    this.latestExchangeDetailsChange.next(this.latestExchangeDetails = exchange);
   };
 
   setRates(rates: rateCurrencies) {
