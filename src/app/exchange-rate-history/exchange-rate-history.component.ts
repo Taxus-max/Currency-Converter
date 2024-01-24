@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {CurrencyDataService} from "../currency-data.service";
-import { rateCurrencies } from "../interfaces/interfaces";
+import {rateCurrencies} from "../interfaces/interfaces";
 
 @Component({
   selector: 'app-exchange-rate-history',

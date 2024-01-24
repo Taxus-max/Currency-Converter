@@ -1,23 +1,23 @@
-.base-text{
+.base-text {
   color: white;
   font-size: 1.3vw;
 }
 
-.result-text{
+.result-text {
   color: white;
   font-weight: bold;
   font-size: xx-large;
 }
 
-.note-text{
+.note-text {
   font-size: large;
 }
 
-.info-text{
+.info-text {
   color: dodgerblue;
 }
 
-.welcome-text{
+.welcome-text {
   color: white;
   font-size: xx-large;
   text-align: center;
@@ -25,6 +25,6 @@
   align-content: center;
 }
 
-.bod-text{
+.bod-text {
   font-weight: bold;
 }

@@ -1,7 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {mergeMap, Subject} from "rxjs";
-import { exchangeDetails, rateCurrencies, httpConvertResponse, httpRateResponse, httpCurrentResponse, currentExchangeRates} from "./interfaces/interfaces";
+import {
+  exchangeDetails,
+  rateCurrencies,
+  httpConvertResponse,
+  httpRateResponse,
+  httpCurrentResponse,
+  currentExchangeRates
+} from "./interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -43,14 +50,14 @@ export class CurrencyDataService {
     }))
   }
 
-  convertCurrency(amount: number, from: string, to: string){
-    if(to === "EUR"){
+  convertCurrency(amount: number, from: string, to: string) {
+    if (to === "EUR") {
       this.httpExchangeRequestEur(amount, from, to);
-    }else{
+    } else {
       this.httpExchangeRequestNonEur(amount, from, to);
     }
 
-    this.http.get<httpRateResponse>('https://api.currencybeacon.com/v1/historical',{
+    this.http.get<httpRateResponse>('https://api.currencybeacon.com/v1/historical', {
       params: {
         api_key: this.apiKey,
         base: from,
@@ -58,12 +65,12 @@ export class CurrencyDataService {
         symbols: "USD,EUR,JPY,AUD,GBP,CHF,CAD,HKD,NZD,CNH",
       },
       observe: 'body'
-    }).subscribe((resp:httpRateResponse) => this.setRates(resp.rates));
+    }).subscribe((resp: httpRateResponse) => this.setRates(resp.rates));
 
   }
 
-  httpExchangeRequestEur(amount: number, from: string, to: string){
-    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+  httpExchangeRequestEur(amount: number, from: string, to: string) {
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert', {
       params: {
         api_key: this.apiKey,
         from: from,
@@ -71,21 +78,21 @@ export class CurrencyDataService {
         amount: amount,
       },
       observe: 'body'
-    }).subscribe((resp:httpConvertResponse) => {
-        this.setResults({
-          from: from,
-          to: to,
-          amount: amount,
-          finalAmount: resp.value,
-          amountMiddle: 0,
-          finalMiddleAmount: 0,
-        })
+    }).subscribe((resp: httpConvertResponse) => {
+      this.setResults({
+        from: from,
+        to: to,
+        amount: amount,
+        finalAmount: resp.value,
+        amountMiddle: 0,
+        finalMiddleAmount: 0,
       })
+    })
   }
 
-  httpExchangeRequestNonEur(amount: number, from: string, to: string){
+  httpExchangeRequestNonEur(amount: number, from: string, to: string) {
     let finalMiddleAmount: number = 0;
-    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert', {
       params: {
         api_key: this.apiKey,
         from: from,
@@ -93,9 +100,9 @@ export class CurrencyDataService {
         amount: amount,
       },
       observe: 'body'
-    }).subscribe((resp:httpConvertResponse) => finalMiddleAmount = resp.value)
+    }).subscribe((resp: httpConvertResponse) => finalMiddleAmount = resp.value)
 
-    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert', {
       params: {
         api_key: this.apiKey,
         from: from,
@@ -103,8 +110,8 @@ export class CurrencyDataService {
         amount: amount,
       },
       observe: 'body'
-    }).pipe(mergeMap((resp:httpConvertResponse) =>
-      this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+    }).pipe(mergeMap((resp: httpConvertResponse) =>
+      this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert', {
         params: {
           api_key: this.apiKey,
           from: "EUR",
@@ -113,7 +120,7 @@ export class CurrencyDataService {
         },
         observe: 'body'
       })
-    )).subscribe((resp:httpConvertResponse) => {
+    )).subscribe((resp: httpConvertResponse) => {
       this.setResults({
         from: from,
         to: to,
@@ -125,7 +132,7 @@ export class CurrencyDataService {
     })
   }
 
-  setResults(exchange: exchangeDetails){
+  setResults(exchange: exchangeDetails) {
     this.latestExchangeDetailsChange.next(this.latestExchangeDetails = {
       from: exchange.from,
       to: exchange.to,
@@ -136,18 +143,18 @@ export class CurrencyDataService {
     });
   };
 
-  setRates(rates: rateCurrencies){
+  setRates(rates: rateCurrencies) {
     this.latestCurrencyRatesChange.next(this.latestCurrencyRates = rates);
   };
 
-  getDateForHistory(){
+  getDateForHistory() {
     let date = new Date();
-    date.setDate(date.getDate() -1 );
+    date.setDate(date.getDate() - 1);
     return (date.toISOString().split('T')[0].toString());
   }
 
-  getCurrentRates(): currentExchangeRates{
-    let currentRates: currentExchangeRates ={
+  getCurrentRates(): currentExchangeRates {
+    let currentRates: currentExchangeRates = {
       usdToEur: 0,
       eurToUsd: 0,
       usdTogbp: 0,

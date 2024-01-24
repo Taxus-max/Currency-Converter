@@ -1,11 +1,11 @@
-.arrow-icon{
+.arrow-icon {
   font-size: 60px;
-  height: 70px ;
+  height: 70px;
   width: 60px;
   color: white;
 }
 
-.exchange-box{
+.exchange-box {
   height: 100%;
   text-align: center;
   align-content: center;
@@ -13,14 +13,14 @@
 
 }
 
-button{
+button {
   transform: scale(1.5);
 }
 
-.country-flag{
+.country-flag {
   width: 20%
 }
 
-.currency-icon{
+.currency-icon {
   color: white;
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { CurrencyDataService } from '../currency-data.service'
+import {Component} from '@angular/core';
+import {CurrencyDataService} from '../currency-data.service'
 import {NgIf} from "@angular/common";
-import { exchangeDetails } from "../interfaces/interfaces";
+import {exchangeDetails} from "../interfaces/interfaces";
 
 @Component({
   selector: 'app-exchange-details',

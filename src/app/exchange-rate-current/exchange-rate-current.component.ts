@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {CurrencyDataService} from "../currency-data.service";
-import { currentExchangeRates } from "../interfaces/interfaces";
+import {currentExchangeRates} from "../interfaces/interfaces";
 
 @Component({
   selector: 'app-exchange-rate-current',
@@ -14,9 +14,10 @@ import { currentExchangeRates } from "../interfaces/interfaces";
   styleUrl: './exchange-rate-current.component.css'
 })
 export class ExchangeRateCurrentComponent {
-  constructor(private currencyDataService: CurrencyDataService) {}
+  constructor(private currencyDataService: CurrencyDataService) {
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     this.currentExchangeRates = this.currencyDataService.getCurrentRates();
   }
 

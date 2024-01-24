@@ -1,6 +1,6 @@
 <div class="exchange-box">
   <mat-grid-list cols="5">
-    <mat-grid-tile >
+    <mat-grid-tile>
       <mat-form-field>
         <mat-label>Amount</mat-label>
         <input matInput type="number" #moneyStartingAmount>
@@ -14,7 +14,8 @@
           @for (currency of currencies; track currency) {
           <mat-option [value]="currency.Code">
             <img class="country-flag" src="{{currency.Flag}}">
-              &nbsp;<a style="font-weight: bold">{{currency.Code}}</a>&nbsp;<a style="font-style: italic">{{currency.CountryName}}</a>
+          &nbsp;<a style="font-weight: bold">{{currency.Code}}</a>&nbsp;<a style="font-style: italic">{{
+          currency.CountryName}}</a>
           </mat-option>
           }
         </mat-select>
@@ -30,14 +31,15 @@
           @for (currency of currencies; track currency) {
           <mat-option [value]="currency.Code">
             <img class="country-flag" src="{{currency.Flag}}">
-             &nbsp;<a style="font-weight: bold">{{currency.Code}}</a>&nbsp;<a style="font-style: italic">{{currency.CountryName}}</a>
+          &nbsp;<a style="font-weight: bold">{{currency.Code}}</a>&nbsp;<a style="font-style: italic">{{
+          currency.CountryName}}</a>
           </mat-option>
           }
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile rowspan="2">
-      <button mat-raised-button color="primary" (click)="convertButtonClick(moneyStartingAmount.value)" >Convert</button>
+      <button mat-raised-button color="primary" (click)="convertButtonClick(moneyStartingAmount.value)">Convert</button>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
