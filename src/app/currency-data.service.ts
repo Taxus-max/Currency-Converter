@@ -51,10 +51,10 @@ export class CurrencyDataService {
   }
 
   convertCurrency(amount: number, from: string, to: string) {
-    if (to === "EUR") {
-      this.httpExchangeRequestEur(amount, from, to);
-    } else {
+    if (from ==="HUF" && to !== "EUR") {
       this.httpExchangeRequestNonEur(amount, from, to);
+    } else {
+      this.httpExchangeRequestEur(amount, from, to);
     }
 
     this.http.get<httpRateResponse>('https://api.currencybeacon.com/v1/historical', {
