@@ -1,1 +1,43 @@
-<p>exchange-rate-current works!</p>
+<div class="side-box">
+  <div class="title-box">
+    <h2>Current exchange rates:</h2>
+  </div>
+  <mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile>
+      USD > EUR
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{currentExchangeRates.usdToEur.toFixed(4)}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      EUR > USD
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{currentExchangeRates.eurToUsd.toFixed(4)}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      USD > GBP
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{currentExchangeRates.usdTogbp.toFixed(4)}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      GBP > USD
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{currentExchangeRates.gbpTousd.toFixed(4)}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      EUR > GBP
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{currentExchangeRates.eurTogbp.toFixed(4)}}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      GBP > EUR
+    </mat-grid-tile>
+    <mat-grid-tile>
+      {{currentExchangeRates.gbpToEur.toFixed(4)}}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
