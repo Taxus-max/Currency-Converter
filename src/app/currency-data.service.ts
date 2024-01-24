@@ -50,7 +50,7 @@ export class CurrencyDataService {
     }))
   }
 
-  convertCurrency(amount: number, from: string, to: string) {
+  convertCurrency(amount: number, from: string, to: string): void {
     if (from ==="HUF" && to !== "EUR") {
       this.httpExchangeRequestNonEur(amount, from, to);
     } else {
@@ -69,7 +69,7 @@ export class CurrencyDataService {
 
   }
 
-  httpExchangeRequestEur(amount: number, from: string, to: string) {
+  httpExchangeRequestEur(amount: number, from: string, to: string): void {
     this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert', {
       params: {
         api_key: this.apiKey,
@@ -90,7 +90,7 @@ export class CurrencyDataService {
     })
   }
 
-  httpExchangeRequestNonEur(amount: number, from: string, to: string) {
+  httpExchangeRequestNonEur(amount: number, from: string, to: string): void {
     let finalMiddleAmount: number = 0;
     this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert', {
       params: {
@@ -132,15 +132,15 @@ export class CurrencyDataService {
     })
   }
 
-  setResults(exchange: exchangeDetails) {
+  setResults(exchange: exchangeDetails): void {
     this.latestExchangeDetailsChange.next(this.latestExchangeDetails = exchange);
   };
 
-  setRates(rates: rateCurrencies) {
+  setRates(rates: rateCurrencies): void {
     this.latestCurrencyRatesChange.next(this.latestCurrencyRates = rates);
   };
 
-  getDateForHistory() {
+  getDateForHistory(): string {
     let date = new Date();
     date.setDate(date.getDate() - 1);
     return (date.toISOString().split('T')[0].toString());

@@ -31,7 +31,7 @@ export class ExchangeComponent {
   currencyFrom: string = "HUF";
   currencyTo: string = "";
 
-  convertButtonClick(moneyStartingAmount: string) {
+  convertButtonClick(moneyStartingAmount: string): void {
     if (this.currencyFrom === this.currencyTo) {
       alert("Please select two different currencies!");
       return;
@@ -48,7 +48,7 @@ export class ExchangeComponent {
     this.currencyDataService.convertCurrency(Number(moneyStartingAmount), this.currencyFrom, this.currencyTo);
   };
 
-  getCurrencySymbol(currencyCode: string) {
+  getCurrencySymbol(currencyCode: string): string {
     return this.currencies.find(currency => {
       return currency.Code === currencyCode
     })!.Symbol
