@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs";
+import {HttpClient} from '@angular/common/http';
+import {mergeMap, Subject} from "rxjs";
 
 interface exchangeDetails{
   from: string,
   to: string,
   amount: number,
-  amountMiddle?: number,
-  finalMiddleAmount?: number,
+  amountMiddle: number,
+  finalMiddleAmount: number,
   finalAmount: number
 }
 
 interface rateCurrencies{
   USD: number,
   EUR: number,
-  YEN: number,
+  JPY: number,
   AUD: number,
   GBP: number,
   CHF: number,
@@ -21,7 +22,25 @@ interface rateCurrencies{
   HKD: number,
   NZD: number,
   CNH: number
+}
 
+interface httpConvertResponse {
+  amount: number,
+  date: string,
+  from: string,
+  meta: object,
+  response: object,
+  timestamp: number,
+  to: string,
+  value: number
+}
+
+interface httpConvertResponse {
+  base: string,
+  date: string,
+  meta: object,
+  rates: rateCurrencies,
+  response: object,
 }
 
 @Injectable({
@@ -33,12 +52,15 @@ export class CurrencyDataService {
     from: '',
     to: '',
     amount: 0,
-    finalAmount: 0
+    finalAmount: 0,
+    amountMiddle: 0,
+    finalMiddleAmount: 0,
   };
+
   latestCurrencyRates: rateCurrencies = {
     USD: 0,
     EUR: 0,
-    YEN: 0,
+    JPY: 0,
     AUD: 0,
     GBP: 0,
     CHF: 0,
@@ -50,8 +72,9 @@ export class CurrencyDataService {
 
   latestExchangeDetailsChange: Subject<exchangeDetails> = new Subject<exchangeDetails>();
   latestCurrencyRatesChange: Subject<rateCurrencies> = new Subject<rateCurrencies>();
+  apiKey = "qbnMxJtvv96ANbGPENLHqKFh1U4KFMyT";
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.latestExchangeDetailsChange.subscribe((value => {
       this.latestExchangeDetails = value
     }))
@@ -62,34 +85,105 @@ export class CurrencyDataService {
 
   convertCurrency(amount: number, from: string, to: string){
     if(to === "EUR"){
-      //Exchange from - to
-      //Return only the final amount
+      this.httpExchangeRequestEur(amount, from, to);
     }else{
-      //Exchange from - eur - to
-      //Return amount after both steps
+      this.httpExchangeRequestNonEur(amount, from, to);
     }
 
-    //get rate history for the selected cur
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/historical',{
+      params: {
+        api_key: this.apiKey,
+        base: from,
+        date: this.getDateForHistory(),
+        symbols: "USD,EUR,JPY,AUD,GBP,CHF,CAD,HKD,NZD,CNH",
+      },
+      observe: 'body'
+    }).subscribe((resp:httpConvertResponse) => this.setRates(resp.rates));
 
+  }
+
+  httpExchangeRequestEur(amount: number, from: string, to: string){
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+      params: {
+        api_key: this.apiKey,
+        from: from,
+        to: to,
+        amount: amount,
+      },
+      observe: 'body'
+    }).subscribe((resp:httpConvertResponse) => {
+        this.setResults({
+          from: from,
+          to: to,
+          amount: amount,
+          finalAmount: resp.value,
+          amountMiddle: 0,
+          finalMiddleAmount: 0,
+        })
+      })
+  }
+
+  httpExchangeRequestNonEur(amount: number, from: string, to: string){
+    let finalMiddleAmount: number = 0;
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+      params: {
+        api_key: this.apiKey,
+        from: from,
+        to: to,
+        amount: amount,
+      },
+      observe: 'body'
+    }).subscribe((resp:httpConvertResponse) => finalMiddleAmount = resp.value)
+
+    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+      params: {
+        api_key: this.apiKey,
+        from: from,
+        to: "EUR",
+        amount: amount,
+      },
+      observe: 'body'
+    }).pipe(mergeMap((resp:httpConvertResponse) =>
+      this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/convert',{
+        params: {
+          api_key: this.apiKey,
+          from: "EUR",
+          to: to,
+          amount: resp.value,
+        },
+        observe: 'body'
+      })
+    )).subscribe((resp:httpConvertResponse) => {
+      this.setResults({
+        from: from,
+        to: to,
+        amount: amount,
+        finalAmount: resp.value,
+        amountMiddle: resp.amount,
+        finalMiddleAmount: finalMiddleAmount,
+      })
+    })
+  }
+
+  setResults(exchange: exchangeDetails){
     this.latestExchangeDetailsChange.next(this.latestExchangeDetails = {
-      from: from,
-      to: to,
-      amount: amount,
-      finalAmount: 10400
+      from: exchange.from,
+      to: exchange.to,
+      amount: exchange.amount,
+      amountMiddle: exchange.amountMiddle,
+      finalMiddleAmount: exchange.finalMiddleAmount,
+      finalAmount: exchange.finalAmount
     });
+  };
 
-    this.latestCurrencyRatesChange.next(this.latestCurrencyRates = {
-      USD: 120,
-      EUR: 313,
-      YEN: 123,
-      AUD: 123123,
-      GBP: 12,
-      CHF: 123123,
-      CAD: 12313,
-      HKD: 0,
-      NZD: 0,
-      CNH: 0
-    });
+  setRates(rates: rateCurrencies){
+    this.latestCurrencyRatesChange.next(this.latestCurrencyRates = rates);
+  };
+
+  getDateForHistory(){
+    let date = new Date();
+    date.setDate(date.getDate() -1 );
+    return (date.toISOString().split('T')[0].toString());
   }
 
 }
