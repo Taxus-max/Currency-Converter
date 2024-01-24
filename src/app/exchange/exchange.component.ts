@@ -6,14 +6,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import worldCurrencies from "../../assets/currency_symbol.json"
 import {CurrencyDataService} from "../currency-data.service";
-
-interface currency {
-  Flag: string,
-  CountryName: string,
-  Currency: string,
-  Code: string,
-  Symbol: string
-}
+import { currency } from "../interfaces/interfaces";
 
 @Component({
   selector: 'app-exchange',

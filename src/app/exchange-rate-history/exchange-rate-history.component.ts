@@ -1,19 +1,7 @@
 import {Component} from '@angular/core';
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {CurrencyDataService} from "../currency-data.service";
-
-interface rateCurrencies{
-  USD: number,
-  EUR: number,
-  JPY: number,
-  AUD: number,
-  GBP: number,
-  CHF: number,
-  CAD: number,
-  HKD: number,
-  NZD: number,
-  CNH: number
-}
+import { rateCurrencies } from "../interfaces/interfaces";
 
 @Component({
   selector: 'app-exchange-rate-history',

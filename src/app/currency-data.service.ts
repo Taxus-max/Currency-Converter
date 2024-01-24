@@ -1,47 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {mergeMap, Subject} from "rxjs";
-
-interface exchangeDetails{
-  from: string,
-  to: string,
-  amount: number,
-  amountMiddle: number,
-  finalMiddleAmount: number,
-  finalAmount: number
-}
-
-interface rateCurrencies{
-  USD: number,
-  EUR: number,
-  JPY: number,
-  AUD: number,
-  GBP: number,
-  CHF: number,
-  CAD: number,
-  HKD: number,
-  NZD: number,
-  CNH: number
-}
-
-interface httpConvertResponse {
-  amount: number,
-  date: string,
-  from: string,
-  meta: object,
-  response: object,
-  timestamp: number,
-  to: string,
-  value: number
-}
-
-interface httpConvertResponse {
-  base: string,
-  date: string,
-  meta: object,
-  rates: rateCurrencies,
-  response: object,
-}
+import { exchangeDetails, rateCurrencies, httpConvertResponse, httpRateResponse, httpCurrentResponse, currentExchangeRates} from "./interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -90,7 +50,7 @@ export class CurrencyDataService {
       this.httpExchangeRequestNonEur(amount, from, to);
     }
 
-    this.http.get<httpConvertResponse>('https://api.currencybeacon.com/v1/historical',{
+    this.http.get<httpRateResponse>('https://api.currencybeacon.com/v1/historical',{
       params: {
         api_key: this.apiKey,
         base: from,
@@ -98,7 +58,7 @@ export class CurrencyDataService {
         symbols: "USD,EUR,JPY,AUD,GBP,CHF,CAD,HKD,NZD,CNH",
       },
       observe: 'body'
-    }).subscribe((resp:httpConvertResponse) => this.setRates(resp.rates));
+    }).subscribe((resp:httpRateResponse) => this.setRates(resp.rates));
 
   }
 
@@ -186,4 +146,52 @@ export class CurrencyDataService {
     return (date.toISOString().split('T')[0].toString());
   }
 
+  getCurrentRates(): currentExchangeRates{
+    let currentRates: currentExchangeRates ={
+      usdToEur: 0,
+      eurToUsd: 0,
+      usdTogbp: 0,
+      gbpTousd: 0,
+      eurTogbp: 0,
+      gbpToEur: 0,
+    }
+
+    this.http.get<httpCurrentResponse>('https://api.currencybeacon.com/v1/latest',{
+      params: {
+        api_key: this.apiKey,
+        base: "USD",
+        symbols : "EUR,GBP",
+      },
+      observe: 'body'
+    }).subscribe(resp => {
+      currentRates.usdToEur = resp.rates.EUR!
+      currentRates.usdTogbp = resp.rates.GBP!
+      })
+
+    this.http.get<httpCurrentResponse>('https://api.currencybeacon.com/v1/latest',{
+      params: {
+        api_key: this.apiKey,
+        base: "EUR",
+        symbols : "USD,GBP",
+      },
+      observe: 'body'
+    }).subscribe(resp => {
+      currentRates.eurToUsd = resp.rates.USD!
+      currentRates.eurTogbp= resp.rates.GBP!
+    })
+
+    this.http.get<httpCurrentResponse>('https://api.currencybeacon.com/v1/latest',{
+      params: {
+        api_key: this.apiKey,
+        base: "GBP",
+        symbols : "USD,EUR",
+      },
+      observe: 'body'
+    }).subscribe(resp => {
+      currentRates.gbpToEur = resp.rates.EUR!
+      currentRates.gbpTousd= resp.rates.USD!
+    })
+
+    return currentRates;
+  }
 }

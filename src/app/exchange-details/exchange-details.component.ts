@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
 import { CurrencyDataService } from '../currency-data.service'
 import {NgIf} from "@angular/common";
-
-interface exchangeDetails{
-  from: string,
-  to: string,
-  amount: number,
-  amountMiddle: number,
-  finalMiddleAmount: number,
-  finalAmount: number
-}
+import { exchangeDetails } from "../interfaces/interfaces";
 
 @Component({
   selector: 'app-exchange-details',
