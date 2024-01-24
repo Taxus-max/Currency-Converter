@@ -6,8 +6,8 @@ interface exchangeDetails{
   from: string,
   to: string,
   amount: number,
-  amountMiddle?: number,
-  finalMiddleAmount?: number,
+  amountMiddle: number,
+  finalMiddleAmount: number,
   finalAmount: number
 }
 
@@ -30,6 +30,8 @@ export class ExchangeDetailsComponent {
     from: '',
     to: '',
     amount: 0,
-    finalAmount: 0
+    finalAmount: 0,
+    amountMiddle: 0,
+    finalMiddleAmount: 0,
   };
 }

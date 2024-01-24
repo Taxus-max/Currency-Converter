@@ -5,7 +5,7 @@ import {CurrencyDataService} from "../currency-data.service";
 interface rateCurrencies{
   USD: number,
   EUR: number,
-  YEN: number,
+  JPY: number,
   AUD: number,
   GBP: number,
   CHF: number,
@@ -40,7 +40,7 @@ export class ExchangeRateHistoryComponent {
   exchangeRates: rateCurrencies = {
     USD: 0,
     EUR: 0,
-    YEN: 0,
+    JPY: 0,
     AUD: 0,
     GBP: 0,
     CHF: 0,
