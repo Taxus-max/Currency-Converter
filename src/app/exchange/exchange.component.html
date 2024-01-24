@@ -14,7 +14,7 @@
           @for (currency of currencies; track currency) {
           <mat-option [value]="currency.Code">
             <img class="country-flag" src="{{currency.Flag}}">
-          {{currency.Code}} - {{currency.CountryName}} {{currency.Currency}}
+              &nbsp;<a style="font-weight: bold">{{currency.Code}}</a>&nbsp;<a style="font-style: italic">{{currency.CountryName}}</a>
           </mat-option>
           }
         </mat-select>
@@ -30,7 +30,7 @@
           @for (currency of currencies; track currency) {
           <mat-option [value]="currency.Code">
             <img class="country-flag" src="{{currency.Flag}}">
-          {{currency.Code}} - {{currency.CountryName}} {{currency.Currency}}
+             &nbsp;<a style="font-weight: bold">{{currency.Code}}</a>&nbsp;<a style="font-style: italic">{{currency.CountryName}}</a>
           </mat-option>
           }
         </mat-select>
