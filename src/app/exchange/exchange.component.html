@@ -1,5 +1,5 @@
 <div class="exchange-box">
-  <mat-grid-list cols="5">
+  <mat-grid-list cols="4" rowHeight="2:1">
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Amount</mat-label>
@@ -38,7 +38,7 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile rowspan="2">
+    <mat-grid-tile  colspan="4">
       <button mat-raised-button color="primary" (click)="convertButtonClick(moneyStartingAmount.value)">Convert</button>
     </mat-grid-tile>
   </mat-grid-list>
